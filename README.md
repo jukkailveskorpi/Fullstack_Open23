@@ -1,1 +1,2 @@
-# Fullstack_Open23
+#Fullstack Open 
+Open University of Helsinki MOOC
