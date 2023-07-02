@@ -48,7 +48,9 @@ color: #839494;
 display: flex;
 align-items: center;
 }
+
 .error {
+max-width: 75rem;
 color:#839483;
 }
 
