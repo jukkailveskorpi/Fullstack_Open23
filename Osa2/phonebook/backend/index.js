@@ -60,8 +60,9 @@ let persons = [
     }
   ]
 
-app.get('/', (req, res) => {
-  res.send('<h1>Boozzzze book</h1>')
+app.get('/info', (req, res) => {
+  const requestTime = new Date(Date.now()) 
+  res.send(`<p>Phonebook has info for ${persons.length} people in ${requestTime} </p>`)
 }) 
 
 app.get('/api/persons', (req, res) => {
@@ -118,6 +119,7 @@ app.delete('/api/persons/:id', (request, response) => {
 app.use(unknownEndpoint)
 
 const PORT = 3001
+//process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server runnin on port ${PORT}`)
 })

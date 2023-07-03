@@ -6,6 +6,7 @@ import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import personService from './services/persons'
 import Footer from './components/Footer' 
+
 <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 
 const Notification = ({ notification }) => {
@@ -37,7 +38,7 @@ const App =()=> {
 
   const displayMessage = (message, color = "notification") => {
     setNotificationMessage({ message, color })
-    setTimeout(() => setNotificationMessage(null), 4000)
+    setTimeout(() => setNotificationMessage(null), 5000)
   }
 
  

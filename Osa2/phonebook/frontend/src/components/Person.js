@@ -1,5 +1,5 @@
  import React from 'react';
-
+ //import DeletePerson from 'DeletePerson';
 
 
 
@@ -14,5 +14,7 @@ const Person = ({ person, deleteButton }) => {
   }
   
   export default Person;
+
+  //  
 
   
