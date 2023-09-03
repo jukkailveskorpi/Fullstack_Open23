@@ -165,6 +165,40 @@ app.use(express.static('build'))
 app.use(cors())
 app.use(express.json())
 
+
+
+const mongoose = require('mongoose')
+
+//const password = process.argv[2]
+
+const url =
+  `mongodb+srv://solarsystems3:${password}@clustertest.zwk5zxv.mongodb.net/?retryWrites=true&w=majority`
+mongoose.set('strictQuery', false)
+mongoose.connect(url)
+
+const personSchema = new mongoose.Schema({
+  content: String,
+})
+
+const Person = mongoose.model('Person', personSchema)
+
+/*const note = new Note({
+  content: 'HTML is Easy',
+  important: true,
+})
+
+note.save().then(result => {
+  console.log('note saved!')
+  mongoose.connection.close()
+})
+
+Note.find({}).then(result => {
+  result.forEach(note => {
+    console.log(note)
+  })
+  mongoose.connection.close()
+}) */
+
 //app.use(morgan('tiny'))
 //morgan custom for Post
 function logRequest(req, res, next) {
@@ -234,8 +268,14 @@ app.get('/info', (req, res) => {
   res.send(`<p>Phonebook has info for ${persons.length} people in ${requestTime} </p>`)
 }) 
 
-app.get('/api/persons', (req, res) => {
+/*app.get('/api/persons', (req, res) => {
   res.json(persons)
+})*/
+
+app.get('/api/persons', (req, res) => {
+  Person.find({}).then(persons => {
+  res.json(persons)
+})
 })
 
 const generateId = () => {
