@@ -157,30 +157,51 @@ app.listen(PORT, () => {
 
 const express = require('express')
 const app = express()
+const Person = require('./models/person')
 const morgan = require('morgan')
 const cors = require('cors')
+require('dotenv').config()
 
 
-app.use(express.static('build'))
+
+
+const requestLogger = (request, response, next) => {
+  console.log('Method:', request.method)
+  console.log('Path:', request.path)
+  console.log('Body:', request.body)
+  console.log('---')
+  next()
+}
+
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' })
+}
+
 app.use(cors())
 app.use(express.json())
+app.use(requestLogger)
+app.use(express.static('build'))
+
+let persons =[
+]
 
 
 
-const mongoose = require('mongoose')
-
-//const password = process.argv[2]
+/*const mongoose = require('mongoose')
 
 const url =
-  `mongodb+srv://solarsystems3:${password}@clustertest.zwk5zxv.mongodb.net/?retryWrites=true&w=majority`
+  `mongodb+srv://solarsystems3:${password}@clustertest.zwk5zxv.mongodb.net/personsApp?retryWrites=true&w=majority`
+
 mongoose.set('strictQuery', false)
 mongoose.connect(url)
 
 const personSchema = new mongoose.Schema({
-  content: String,
-})
+  name: String,
+  number: String,
+}) */
 
-const Person = mongoose.model('Person', personSchema)
+
+//const Person = mongoose.model('Person', personSchema)
 
 /*const note = new Note({
   content: 'HTML is Easy',
@@ -220,7 +241,7 @@ app.use(logRequest);
   stream: process.stdout,
 }));*/
 
-let persons = [
+/*let persons = [
     {
       id: 1,
       name: "Bill Gates ",
@@ -261,7 +282,7 @@ let persons = [
       name: "Ada Locelace ",
       number: "0412231223 "
     }
-  ]
+  ] */
 
 app.get('/info', (req, res) => {
   const requestTime = new Date(Date.now()) 
@@ -329,9 +350,11 @@ app.delete('/api/persons/:id', (request, response) => {
 
   response.status(204).end()
 })
-//app.use(unknownEndpoint)
 
-const PORT = process.env.PORT || 3001
+app.use(unknownEndpoint)
+
+const PORT = process.env.PORT 
+//|| 3001
 app.listen(PORT, () => {
   console.log(`Server runnin on port ${PORT}`)
 }) 
