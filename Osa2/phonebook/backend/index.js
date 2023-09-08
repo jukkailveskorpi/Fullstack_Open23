@@ -162,9 +162,6 @@ const morgan = require('morgan')
 const cors = require('cors')
 require('dotenv').config()
 
-
-
-
 const requestLogger = (request, response, next) => {
   console.log('Method:', request.method)
   console.log('Path:', request.path)
@@ -184,8 +181,6 @@ app.use(express.static('build'))
 
 let persons =[
 ]
-
-
 
 /*const mongoose = require('mongoose')
 
@@ -222,6 +217,7 @@ Note.find({}).then(result => {
 
 //app.use(morgan('tiny'))
 //morgan custom for Post
+
 function logRequest(req, res, next) {
 morgan.token('req-body', function () {
   return JSON.stringify(req.body);
@@ -234,6 +230,7 @@ morgan.token('req-body', function () {
 morgan(':method :url :status :res[content-length] - :response-time ms :date[web] :req-body') (req, res, next);}
 
 app.use(logRequest);
+
 /*app.use(morgan(logginFormat, {
   skip: function (req, res) {
     return req.method !== 'POST';
@@ -309,39 +306,45 @@ const generateId = () => {
 app.post('/api/persons', (request, response) => {
   const body = request.body
 
-  if (!body.name) {
+  if (body.name === undefined) {
     return response.status(400).json({
       error: 'name missing'
     });
   }
 
-  if(!body.number) {
+  if(body.number === undefined) {
     return response.status(400).json({
     error: 'number missing'
   });
   }
  
-  const person = {
+  const person =  new Person({
     name: body.name,
     number: body.number,
     id: generateId(),
-  }
-    persons = persons.concat(person)
-   // console.log(JSON.stringify(request.body));
-    response.json(person)
+  })
+
+    person.save().then(savedPerson => {
+      response.json(savedPerson)
+    })
+    //persons = persons.concat(person)
+    //response.json(person)
 })
 
-
 app.get('/api/persons/:id', (request, response) => {
-  const id = Number(request.params.id)
-  const person = persons.find(person => person.id === id)
+  /*const id = Number(request.params.id)
+    const person = persons.find(person => person.id === id)*/
 
-  if (person) {
+  Person.findById(request.params.id).then(person => {
+
+  /*if (person) {
     response.json(person)
   } else {
     response.status(404).end()
-  }
+  }*/
+  
   response.json(person)
+})
 })
 
 app.delete('/api/persons/:id', (request, response) => {
