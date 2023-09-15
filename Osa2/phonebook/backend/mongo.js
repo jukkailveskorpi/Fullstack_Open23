@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+require('dotenv').config()
 
 if (process.argv.length<3) {
   console.log('give password as argument')
@@ -7,13 +8,15 @@ if (process.argv.length<3) {
 
 const password = process.argv[2]
 
-const url =
-  //`mongodb+srv://solarsystems3:${password}@cluster0.o1opl.mongodb.net/personApp?retryWrites=true&w=majority`
-  `mongodb+srv://solarsystems3:${password}@clustertest.zwk5zxv.mongodb.net/persons?retryWrites=true&w=majority`
- 
+const url = 
+  process.env.MONGODB_URI;
+ // `mongodb+srv://solarsystems3:{password}@clustertest.zwk5zxv.mongodb.net/persons?retryWrites=true&w=majority`
 mongoose.set('strictQuery',false)
 mongoose.connect(url)
 
+/*mongoose.connect(process.env.DATABASE, {
+
+})*/
 const personSchema = new mongoose.Schema({
   name: String,
   number: String,
@@ -21,19 +24,19 @@ const personSchema = new mongoose.Schema({
 
 const Person = mongoose.model('Person', personSchema)
 
-const person = new Person({
+/* const person = new Person({
 
  // {
    // id: 1,
     name: "Bill Gates ",
     number: "0405522134 ",
-  }
- /*  {
+})
+   {
     id: 2,
     name: "Dan Abramov ",
-    number: "0507723411 "
-  },
-  {
+    number: "0507723411 ",
+  })
+ {
     id: 3,
     name: "Steven Jobs ",
     number: "05065245611 "
@@ -68,12 +71,34 @@ const person = new Person({
  name: 'Peter Forsell',
   number: '0405628375',
 }*/
-)
+
 
 /*person.save().then(result => {
   console.log('person saved!')
   mongoose.connection.close()
 })*/
+
+// copy alla
+
+if (process.argv.length !== 5) {
+  console.log('Usage: node mongo.js <password> <name> <number>')
+  process.exit(1)
+}
+
+const name = process.argv[3]
+const number = process.argv[4]
+
+const person = new Person({
+  name: name,
+  number: number,
+})
+
+person.save().then(() => {
+  console.log(`Added ${name} with number ${number} to the phonebook`)
+  mongoose.connection.close()
+})
+
+//copy yllä
 
 Person.find({}).then(result => {
   result.forEach(person => {
