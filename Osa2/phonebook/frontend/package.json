@@ -40,5 +40,5 @@
   "devDependencies": {
     "json-server": "^0.17.3"
   },
-  "proxy": "http://localhost:3001"
+  "proxy": "MONGODB_URI=mongodb+srv://solarsystems3:{password}@clustertest.zwk5zxv.mongodb.net/persons?retryWrites=true&w=majority"
 }

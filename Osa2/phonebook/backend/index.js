@@ -190,6 +190,15 @@ app.use(express.json())
 app.use(requestLogger)
 app.use(express.static('build'))
 
+
+const allowedOrigin = process.env.ALLOWED_ORIGIN || `MONGODB_URI=mongodb+srv://solarsystems3:{password}@clustertest.zwk5zxv.mongodb.net/persons?retryWrites=true&w=majority`; // Update with your production URL
+
+const corsOptions = {
+  origin: allowedOrigin,
+};
+
+app.use(cors(corsOptions));
+
 /*let persons =[
 ]
 
