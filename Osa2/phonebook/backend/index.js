@@ -3,7 +3,7 @@ const morgan = require('morgan')
 const app = express()
 const cors = require('cors')
 app.use(express.static('dist'))
-
+const Person = require('./models/person')
 app.use(cors())
 
 morgan.token('req-body', (req) => {
@@ -24,7 +24,6 @@ app.use(
 }*/
 
 app.use(express.json())
-
 
     let persons = [
       {
@@ -84,14 +83,10 @@ app.use(express.json())
       }
     ]
 
-app.get('/', function
-   (request, response) 
-   { 
-    response.send('<h1> Jeee Jeee </h1>')
-})
-
 app.get('/api/persons', (request, response) => {
+    Person.find({}).then(persons => {
     response.json(persons)
+})
 })
 
 const generatedId = () => {

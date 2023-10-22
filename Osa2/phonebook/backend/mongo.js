@@ -9,7 +9,7 @@ const password = process.argv[2]
 
 const url =
   //`mongodb+srv://fullstack:${password}@cluster0.o1opl.mongodb.net/personApp?retryWrites=true&w=majority`
-  `mongodb+srv://solarsystems3:${password}@clustertest.zwk5zxv.mongodb.net/?retryWrites=true&w=majority`
+  `mongodb+srv://solarsystems3:${password}@clustertest.zwk5zxv.mongodb.net/PersonzApp?retryWrites=true&w=majority`
 mongoose.set('strictQuery', false)
 mongoose.connect(url)
 
