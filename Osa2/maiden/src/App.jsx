@@ -18,12 +18,12 @@ const App = () => {
   return (
    <div>
     Find countries <input value={searchFilter} onChange={e => setSearchFilter(e.target.value)} />   
-    <ShowResults filterdCountries={filteredCountries} /> 
+    <ShowResults filterdCountries={filteredCountries} setSearchFilter={setSearchFilter}/> 
    </div>
   )
 }
 
-const ShowResults = ({filterdCountries}) => {
+const ShowResults = ({filterdCountries, setSearchFilter}) => {
   if (filterdCountries.length === 1) {
     const country = filterdCountries[0]
     return (
@@ -41,7 +41,14 @@ const ShowResults = ({filterdCountries}) => {
     )
   }
   if (filterdCountries.length > 10) return <div>Too many matches, specify another filter </div>
-  return filterdCountries.map(country => <div key={country.name}>{country.name}</div>)
+  
+  return filterdCountries.map(country => {
+  return (
+    <div key={country.name}>
+      {country.name} <button value={country.name} onClick={(e) => setSearchFilter(e.target.value)}>show</button>
+      </div>
+  )
+})
 }
 
 export default App
