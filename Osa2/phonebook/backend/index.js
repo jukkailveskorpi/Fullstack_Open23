@@ -194,8 +194,6 @@ persons = persons.filter(person => person.id !== id)
 response.status(204).end()*/
 })
 
-
-
 app.use(unknownEndpoint)
 app.use(errorHandler)
 
