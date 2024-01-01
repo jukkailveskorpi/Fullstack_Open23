@@ -1,11 +1,44 @@
-.anec {
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
   background-color: darkkhaki;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.App {
   text-align: center;
+  max-width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+  background-color: darkkhaki;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px;
+  font-size: 16px;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .App {
+    font-size: 14px;
+  }
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+.butt {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 button {
@@ -15,12 +48,13 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  color: black;
   cursor: pointer;
   transition: border-color 0.25s;
+  margin: 5px;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: greenyellow;
 }
 button:focus,
 button:focus-visible {
@@ -29,13 +63,14 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: black;
+    background-color: whitesmoke;
   }
   a:hover {
-    color: #747bff;
+    color: greenyellow;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: darkkhaki;
+    border-color: greenyellow;
   }
 }

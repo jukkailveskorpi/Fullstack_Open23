@@ -140,7 +140,6 @@ const App = () => {
     setSelectedCountry(country);
   };
 
-
   return (
     <div className='App'>
       find basic country information and weather <br></br>
@@ -169,7 +168,8 @@ const App = () => {
                   ) : null}
                 </div>
               ))}
-            </>
+            </> 
+
           )}
         </div>
       )}
