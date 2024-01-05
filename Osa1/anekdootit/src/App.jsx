@@ -13,24 +13,34 @@ const App =()=> {
   ]
  
   const [selected, setSelected] = useState(0)
-  const [voted, setVoted] = useState(0)
+  const [points, setPoints] = useState(new Uint8Array(8))
+  const [mostVoted, setMostVoted] = useState(0);
 
   const handleSetSelected =()=> { 
-  setSelected(Math.floor(Math.random() * (7-0)))
+  setSelected(Math.floor(Math.random() * 8))
   }
 
-  const handleSetVoted =()=> { 
-    setVoted()
-    }
+  const handleVote =()=> { 
+    const copy = [ ...points ]
+    copy [selected] += 1;
+    if(copy[selected] > copy[mostVoted]) { 
+       setMostVoted(selected);
+    }  
+    setPoints(copy);
+  }
 
   return (
-  <div className="anec">
-    <br></br>
-  <h1>Anecdotes</h1>
+  <div className="App">
+  <h1>The day's programming anecdote is: </h1>
   <div>{anecdotes[selected]}</div>
-  <button onClick = {handleSetSelected}>next</button>
-  <button onClick = {handleSetVoted}>vote</button>
   <br></br>
+  <div className="butt">
+  <button onClick = {handleSetSelected}>next</button>
+  <button onClick = {handleVote}>vote</button>
+  </div>
+  <br></br>
+  most voted anecdote is: 
+  <div>{anecdotes[mostVoted]}</div>
   </div>
   )
 }
